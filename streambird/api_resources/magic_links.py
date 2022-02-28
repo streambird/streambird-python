@@ -7,9 +7,36 @@ class MagicLinks:
     def __init__(self, client):
         self._client = client
         self.email = Email(client)
-        
+
+    def create(self, user_id: str):
+        req = {
+            'user_id': user_id,
+        }
+        return self._client.api.post_request('auth/magic_links/create', body=req)
+
+    def verify(
+        self,
+        token: str,
+        session_token: Optional[str] = None,
+        session_expires_in: Optional[int] = None,
+        device_fingerprint: Optional[Dict] = None,
+    ):
+        req = {
+            'token': token,
+        }
+
+        if device_fingerprint:
+            req['device_fingerprint'] = device_fingerprint
+        if session_expires_in:
+            req['session_expires_in'] = session_expires_in
+        if session_token:
+            req['session_token'] = session_token
+
+        return self._client.api.post_request('auth/magic_links/verify', body=req)
+
 
 class Email:
+
     def __init__(self, client):
         self._client = client
 
@@ -25,8 +52,8 @@ class Email:
     ):
 
         req = {
-           'email': email,
-           'requires_verification': requires_verification,
+            'email': email,
+            'requires_verification': requires_verification,
         }
         if login_redirect_url:
             req['login_redirect_url'] = login_redirect_url
