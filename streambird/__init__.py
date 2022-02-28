@@ -1,4 +1,5 @@
 from streambird.api_resources.magic_link import MagicLink
+from streambird.api_resources.otp import Otp
 
 from ._version import __version__  # noqa: F401
 from .api import Api
@@ -11,3 +12,4 @@ class Client:
             api_key, user_agent_extension=source, api_instance_url=api_instance_url
         )
         self.magic_links = MagicLink(self)
+        self.otps = Otp(self)

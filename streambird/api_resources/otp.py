@@ -7,7 +7,7 @@ class Otp:
     def __init__(self, client):
         self._client = client
         self.email = Email(client)
-        self.sms = Sms(client)
+        self.sms = SMS(client)
 
     def verify(
         self,
@@ -57,7 +57,25 @@ class Email:
 
         return self._client.api.post_request('auth/otps/email/login_or_create', body=req)
 
-class Sms:
+    def send(
+        self,
+        email: str,
+        expires_in: Optional[int] = None,
+        device_fingerprint: Optional[Dict] = None,
+    ):
+
+        req = {
+            'email': email,
+        }
+        
+        if expires_in:
+            req['expires_in'] = expires_in
+        if device_fingerprint:
+            req['device_fingerprint'] = device_fingerprint
+
+        return self._client.api.post_request('auth/otps/email/send', body=req)
+
+class SMS:
 
     def __init__(self, client):
         self._client = client
@@ -81,3 +99,21 @@ class Sms:
             req['device_fingerprint'] = device_fingerprint
 
         return self._client.api.post_request('auth/otps/sms/login_or_create', body=req)
+
+    def send(
+        self,
+        phone_number: str,
+        expires_in: Optional[int] = None,
+        device_fingerprint: Optional[Dict] = None,
+    ):
+
+        req = {
+            'phone_number': phone_number,
+        }
+        
+        if expires_in:
+            req['expires_in'] = expires_in
+        if device_fingerprint:
+            req['device_fingerprint'] = device_fingerprint
+
+        return self._client.api.post_request('auth/otps/sms/send', body=req)
