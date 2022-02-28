@@ -1,5 +1,6 @@
 from streambird.api_resources.magic_link import MagicLink
 from streambird.api_resources.otp import Otp
+from streambird.api_resources.oauth import OAuth
 
 from ._version import __version__  # noqa: F401
 from .api import Api
@@ -13,3 +14,4 @@ class Client:
         )
         self.magic_links = MagicLink(self)
         self.otps = Otp(self)
+        self.oauth = OAuth(self)
