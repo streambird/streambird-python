@@ -7,7 +7,7 @@ from requests.adapters import HTTPAdapter, Response, Retry
 from ._version import __package_name__, __version__
 from .exceptions import ExceptionMap, StreambirdException
 
-STREAMBIRD_API_BASE_URL_V1 = "http://localhost:11019/v1"
+STREAMBIRD_API_BASE_URL_V1 = "https://api.streambird.io/v1"
 
 # Parameters for HTTP retry
 HTTP_TOTAL_RETRIES = 3  # Number of total retries
