@@ -131,6 +131,34 @@ class Api:
             files=files,
             data=data,
         )
+    
+    def put_request(self, endpoint, body=None, files=None, data=None):
+        """Generic PUT Request Wrapper"""
+        return self._api_request(
+            "PUT",
+            endpoint,
+            headers=self._headers
+            if files is None
+            else self._headers_multipart_form_data,
+            auth=self._auth,
+            body=body,
+            files=files,
+            data=data,
+        )
+
+    def delete_request(self, endpoint, body=None, files=None, data=None):
+        """Generic DELETE Request Wrapper"""
+        return self._api_request(
+            "DELETE",
+            endpoint,
+            headers=self._headers
+            if files is None
+            else self._headers_multipart_form_data,
+            auth=self._auth,
+            body=body,
+            files=files,
+            data=data,
+        )
 
     @staticmethod
     def _generate_useragent(extension: str = None) -> str:
