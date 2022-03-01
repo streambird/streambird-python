@@ -80,7 +80,6 @@ class Api:
 
     @staticmethod
     def _raise_on_respose(res: Response):
-        print(res.json())
         try:
             message = res.json().get("error_message", res.text)
         except ValueError:
@@ -101,7 +100,6 @@ class Api:
         data=None,
     ):
         """Generic HTTP request method with error handling."""
-        print('headers', headers)
         url = f"{self.base_api_url}/{endpoint}"
         
         res = self._http_request(method, url, headers, auth, params, body, files, data)
