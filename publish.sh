@@ -74,4 +74,10 @@ echo "Uploading package..."
 
 if ! twine upload dist/*; then echo "ERROR: Twine upload failed."; exit 1; fi
 
+
+echo "Creating git tag..."
+
+git tag v${PKG_VERSION};
+echo "Pushing git tag..."
+git push origin v${PKG_VERSION};
 exit 0;
