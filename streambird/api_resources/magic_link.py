@@ -1,8 +1,8 @@
 from typing import Dict, Optional
 
 
-class MagicLinks:
-    """MagicLinks class, containing magic links information."""
+class MagicLink:
+    """MagicLink class, containing magic links information."""
 
     def __init__(self, client):
         self._client = client

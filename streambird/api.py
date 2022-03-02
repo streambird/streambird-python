@@ -7,7 +7,7 @@ from requests.adapters import HTTPAdapter, Response, Retry
 from ._version import __package_name__, __version__
 from .exceptions import ExceptionMap, StreambirdException
 
-STREAMBIRD_API_BASE_URL_V1 = "http://localhost:11019/v1"
+STREAMBIRD_API_BASE_URL_V1 = "https://api.streambird.io/v1"
 
 # Parameters for HTTP retry
 HTTP_TOTAL_RETRIES = 3  # Number of total retries
@@ -80,7 +80,6 @@ class Api:
 
     @staticmethod
     def _raise_on_respose(res: Response):
-        print(res.json())
         try:
             message = res.json().get("error_message", res.text)
         except ValueError:
@@ -101,7 +100,6 @@ class Api:
         data=None,
     ):
         """Generic HTTP request method with error handling."""
-        print('headers', headers)
         url = f"{self.base_api_url}/{endpoint}"
         
         res = self._http_request(method, url, headers, auth, params, body, files, data)
@@ -124,6 +122,34 @@ class Api:
         """Generic POST Request Wrapper"""
         return self._api_request(
             "POST",
+            endpoint,
+            headers=self._headers
+            if files is None
+            else self._headers_multipart_form_data,
+            auth=self._auth,
+            body=body,
+            files=files,
+            data=data,
+        )
+    
+    def put_request(self, endpoint, body=None, files=None, data=None):
+        """Generic PUT Request Wrapper"""
+        return self._api_request(
+            "PUT",
+            endpoint,
+            headers=self._headers
+            if files is None
+            else self._headers_multipart_form_data,
+            auth=self._auth,
+            body=body,
+            files=files,
+            data=data,
+        )
+
+    def delete_request(self, endpoint, body=None, files=None, data=None):
+        """Generic DELETE Request Wrapper"""
+        return self._api_request(
+            "DELETE",
             endpoint,
             headers=self._headers
             if files is None
