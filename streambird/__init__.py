@@ -4,6 +4,7 @@ from streambird.api_resources.oauth import OAuth
 from streambird.api_resources.wallet import Wallet
 from streambird.api_resources.user import User
 from streambird.api_resources.session import Session
+from streambird.api_resources.totp import Totp
 
 from ._version import __version__  # noqa: F401
 from .api import Api
@@ -21,3 +22,4 @@ class Client:
         self.wallets = Wallet(self)
         self.users = User(self)
         self.sessions = Session(self)
+        self.totps = Totp(self)
