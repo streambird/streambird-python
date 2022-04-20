@@ -9,12 +9,16 @@ class Session:
 
     def verify(
         self,
-        session_token: str,
+        session_token: Optional[str] = None,
+        session_jwt: Optional[str] = None,
         session_expires_in: Optional[int] = None,
     ):
-        req = {
-            'session_token': session_token,
-        }
+        req = {}
+
+        if session_token:
+            req['session_token'] = session_token
+        if session_jwt:
+            req['session_jwt'] = session_jwt
         if session_expires_in:
             req['session_expires_in'] = session_expires_in
 
@@ -33,12 +37,14 @@ class Session:
     def delete(
         self,
         session_token: Optional[str] = None,
+        session_jwt: Optional[str] = None,
         session_id: Optional[str] = None,
     ):
         req = {}
         if session_token:
             req['session_token'] = session_token
-
+        if session_jwt:
+            req['session_jwt'] = session_jwt
         if session_id:
             req['session_id'] = session_id
 

@@ -72,3 +72,6 @@ class User:
 
     def delete_phone_number(self, phone_number_id: str):
         return self._client.api.delete_request('auth/users/phone_numbers/{}/delete'.format(phone_number_id))
+
+    def delete_wallet(self, wallet_id: str):
+        return self._client.api.delete_request('auth/users/wallets/{}/delete'.format(wallet_id))
