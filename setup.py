@@ -6,7 +6,7 @@ long_description = (this_directory / "README.md").read_text()
 
 
 try:
-    from setuptools import setup
+    from setuptools import setup, find_packages
 except ImportError:
     from distutils.core import setup
 
@@ -31,7 +31,7 @@ def get_version(rel_path):
 
 setup(
     name="streambird",
-    packages=["streambird"],
+    packages=find_packages(exclude='tests'),
     version=get_version("streambird/_version.py"),
     description="The official Python client library for Streambird.io, "
     "the Passwordless Authentication Platform",
